@@ -41,9 +41,7 @@ JdbcTemplate template;
 //         // TODO Auto-generated catch block
 //         e.printStackTrace();
 //      }
-
    }
-
 
    public ArrayList<BDto> list() {
       String query = "select * from smvc_board order by bGroup desc, bStep asc";
@@ -96,7 +94,6 @@ JdbcTemplate template;
 
    public void write(final String bName, final String bTitle, final String bContent) {
       this.template.update(new PreparedStatementCreator() {
-
          @Override
          public PreparedStatement createPreparedStatement(Connection con) throws SQLException {
             // TODO Auto-generated method stub
@@ -108,8 +105,6 @@ JdbcTemplate template;
             return pstmt;
          }
       });
-         
-      }
 
 //      Connection conn = null;
 //      PreparedStatement pstmt = null;
@@ -137,12 +132,13 @@ JdbcTemplate template;
 //            e2.printStackTrace();
 //         }
 //      }
+   }
 
    public BDto contentView(String strID) {
 
       UpHit(strID);
       
-      String query = "select * from smvc_board where bId ="+strID;
+      String query = "select * from smvc_board where bId =" + strID;
       return  template.queryForObject(query, new BeanPropertyRowMapper(BDto.class));
       
 //      BDto dto = null;
@@ -172,7 +168,6 @@ JdbcTemplate template;
 //
 //         }
 //
-//
 //      } catch (Exception e) {
 //         // TODO Auto-generated catch block
 //         e.printStackTrace();
@@ -191,21 +186,20 @@ JdbcTemplate template;
    }
 
       public void modify(final String bId, final String bName,final String bTitle,final String bContent) {
-         
-            String query="update smvc_board set bName = ?, bTitle = ?, bContent = ? where bId = ?";
-         this.template.update(query,new PreparedStatementSetter() {
-         
-         @Override
-         public void setValues(PreparedStatement ps) throws SQLException {
-            // TODO Auto-generated method stub
-            ps.setString(1, bName);
-            ps.setString(2, bTitle);
-            ps.setString(3, bContent);
-            ps.setInt(4, Integer.parseInt(bId));
-         
-            
-         }
-      });
+    	           
+    	  String query="update smvc_board set bName = ?, bTitle = ?, bContent = ? where bId = ?";
+    	  this.template.update(query,new PreparedStatementSetter() {    		          
+    		  @Override
+    		  public void setValues(PreparedStatement ps) throws SQLException {
+    			  
+    			  // TODO Auto-generated method stub
+    			  ps.setString(1, bName);
+    			  ps.setString(2, bTitle);
+    			  ps.setString(3, bContent);
+    			  ps.setInt(4, Integer.parseInt(bId));
+    			  }
+    		  });
+    	  
 //            Connection conn = null;
 //            PreparedStatement pstmt = null;
 //            
@@ -242,12 +236,10 @@ JdbcTemplate template;
             this.template.update(query,new PreparedStatementSetter() {
             
             @Override
-            public void setValues(PreparedStatement ps) throws SQLException {
-               // TODO Auto-generated method stub
-               ps.setInt(1, Integer.parseInt(bId));
-            
-               
-            }
+            public void setValues(PreparedStatement ps) throws SQLException {            	
+            	// TODO Auto-generated method stub
+            	ps.setInt(1, Integer.parseInt(bId));
+        	}
          });
          
 //            Connection conn = null;
@@ -275,14 +267,12 @@ JdbcTemplate template;
 //                  e2.printStackTrace();
 //               }
 //            }
-         }
+      }
 
    public BDto reply_view(String strID) {
-
       
       String query = "select * from smvc_board where bId ="+strID;
-      return  template.queryForObject(query, new BeanPropertyRowMapper(BDto.class));
-      
+      return  template.queryForObject(query, new BeanPropertyRowMapper(BDto.class));      
       
 //      BDto dto = null;
 //      Connection conn = null;
@@ -341,8 +331,6 @@ JdbcTemplate template;
             // TODO Auto-generated method stub
             ps.setInt(1,Integer.parseInt(strGroup));
             ps.setInt(2,Integer.parseInt(strStep));
-         
-            
          }
       });
       
@@ -356,7 +344,6 @@ JdbcTemplate template;
 //         pstmt.setInt(1,Integer.parseInt(strGroup));
 //         pstmt.setInt(2,Integer.parseInt(strStep));
 //         
-//
 //         int rn = pstmt.executeUpdate();
 //
 //      } catch (Exception e) {
@@ -371,12 +358,10 @@ JdbcTemplate template;
 //            e2.printStackTrace();
 //         }
 //      }
-//      
    }
    
    public void reply(final String bId,final String bName,final String bTitle,final String bContent,final String bGroup,final String bStep,final String bIndent) {
 
-      
         replyShape(bGroup, bStep);
         
         String query="insert into smvc_board (bId, bName, bTitle, bContent, bGroup, bStep, bIndent) values (smvc_board_seq.nextval, ?, ?, ?,?,?, ? )";
@@ -390,13 +375,10 @@ JdbcTemplate template;
             ps.setString(3, bContent);
             ps.setInt(4, Integer.parseInt(bGroup));
             ps.setInt(5, Integer.parseInt(bStep)+1);
-                ps.setInt(6, Integer.parseInt(bIndent)+1);
-         
-            
+            ps.setInt(6, Integer.parseInt(bIndent)+1);   
          }
       });
-        
-//      
+         
 //      Connection conn = null;
 //      PreparedStatement pstmt = null;
 //
@@ -426,7 +408,6 @@ JdbcTemplate template;
 //            e2.printStackTrace();
 //         }
 //      }
-//   
    }
    
    public void UpHit(final String strId) {
